@@ -269,8 +269,9 @@ Keycloak.prototype.checkSso = function () {
  *     request.kauth.grant.id_token.sub => bf2056df-3803-4e49-b3ba-ff2b07d86995
  *
  * @param {Object} request The HTTP request.
+ * @param {Object} response The HTTP response.
  */
-Keycloak.prototype.authenticated = function (request) {
+Keycloak.prototype.authenticated = function (request, response) {
   // no-op
 }
 
@@ -282,8 +283,9 @@ Keycloak.prototype.authenticated = function (request) {
  * or otherwise perform additional logic once a user is logged out.
  *
  * @param {Object} request The HTTP request.
+ * @param {Object} response The HTTP response.
  */
-Keycloak.prototype.deauthenticated = function (request) {
+Keycloak.prototype.deauthenticated = function (request, response) {
   // no-op
 }
 

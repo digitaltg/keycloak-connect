@@ -48,11 +48,13 @@ module.exports = function (keycloak) {
 
         request.kauth.grant = grant
         try {
-          keycloak.authenticated(request)
+          keycloak.authenticated(request, response)
         } catch (err) {
           console.log(err)
+          // We have an error, we go back to a clean url
+          // surely the home
+          response.redirect(cleanUrl)
         }
-        response.redirect(cleanUrl)
       }).catch((err) => {
         keycloak.accessDenied(request, response, next)
         console.error('Could not obtain grant code: ' + err)

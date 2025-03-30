@@ -446,8 +446,9 @@ declare namespace KeycloakConnect {
      *     request.kauth.grant.id_token.sub => bf2056df-3803-4e49-b3ba-ff2b07d86995
      *
      * @param {Object} request The HTTP request.
+     * @param {Object} response The HTTP response.
      */
-    authenticated(req: express.Request): void
+    authenticated(req: express.Request, res: express.Response): void
 
     /**
      * Callback made upon successful de-authentication of a user.
@@ -457,8 +458,9 @@ declare namespace KeycloakConnect {
      * or otherwise perform additional logic once a user is logged out.
      *
      * @param {Object} request The HTTP request.
+     * @param {Object} response The HTTP response.
      */
-    deauthenticated(req: express.Request): void
+    deauthenticated(req: express.Request, res: express.Response): void
 
     /**
      * Replaceable function to handle access-denied responses.

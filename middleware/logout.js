@@ -31,7 +31,7 @@ module.exports = function (keycloak, logoutUrl) {
     let idTokenHint = null
     if (request.kauth.grant) {
       idTokenHint = request.kauth.grant.id_token.token
-      keycloak.deauthenticated(request)
+      keycloak.deauthenticated(request, response)
       request.kauth.grant.unstore(request, response)
       delete request.kauth.grant
     }
