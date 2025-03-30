@@ -407,7 +407,10 @@ Keycloak.prototype.logoutUrl = function (redirectUrl, idTokenHint) {
 
   if (redirectUrl && idTokenHint) {
     url.searchParams.set('id_token_hint', idTokenHint)
-    url.searchParams.set('post_logout_redirect_uri', redirectUrl)
+  }
+
+  if (redirectUrl) {
+    url.searchParams.set('post_logout_redirect_uri', redirectUrl);
   }
 
   return url.toString()

@@ -41,7 +41,7 @@ module.exports = function (keycloak, logoutUrl) {
 
     // If we do not found redirect url in query parameter
     // We will use the configured one
-    redirectUrl = config.app?.logout?.redirectUrl;
+    redirectUrl = redirectUrl || config.app?.logout?.redirectUrl;
 
     if (!redirectUrl) {
       const host = request.hostname
