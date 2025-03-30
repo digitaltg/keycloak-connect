@@ -18,8 +18,12 @@
 const URL = require('url')
 
 module.exports = function (keycloak, logoutUrl) {
+  const config = keycloak.getConfig();
+
   return function logout (request, response, next) {
-    const parsedRequest = URL.parse(request.url, true); // eslint-disable-line
+    const requestUrl = request.originalUrl || request.url;
+
+    const parsedRequest = URL.parse(requestUrl, true); // eslint-disable-line
     if (parsedRequest.pathname !== logoutUrl) {
       return next()
     }
@@ -34,6 +38,11 @@ module.exports = function (keycloak, logoutUrl) {
 
     const queryParams = parsedRequest.query
     let redirectUrl = queryParams && queryParams.redirect_url
+
+    // If we do not found redirect url in query parameter
+    // We will use the configured one
+    redirectUrl = config.app?.logout?.redirectUrl;
+
     if (!redirectUrl) {
       const host = request.hostname
       const headerHost = request.headers.host.split(':')

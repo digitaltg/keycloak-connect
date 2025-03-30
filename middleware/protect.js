@@ -18,13 +18,17 @@
 const UUID = require('./../uuid')
 
 function forceLogin (keycloak, request, response) {
-  const host = request.hostname
-  const headerHost = request.headers.host.split(':')
-  const port = headerHost[1] || ''
-  const protocol = request.protocol
-  const hasQuery = ~(request.originalUrl || request.url).indexOf('?')
+  const config = keycloak.getConfig();
 
-  const redirectUrl = protocol + '://' + host + (port === '' ? '' : ':' + port) + (request.originalUrl || request.url) + (hasQuery ? '&' : '?') + 'auth_callback=1'
+  let redirectUrl = config.app?.auth?.redirectUrl;
+  if (!redirectUrl) {
+    const host = request.hostname
+    const headerHost = request.headers.host.split(':');
+    const port = headerHost[1] || '';
+    const protocol = request.protocol;
+    const hasQuery = ~(request.originalUrl || request.url).indexOf('?');
+    redirectUrl = protocol + '://' + host + (port === '' ? '' : ':' + port) + (request.originalUrl || request.url) + (hasQuery ? '&' : '?') + 'auth_callback=1';
+  }
 
   if (request.session) {
     request.session.auth_redirect_uri = redirectUrl
@@ -40,7 +44,7 @@ function simpleGuard (role, token) {
 }
 
 module.exports = function (keycloak, spec) {
-  let guard
+  let guard = null;
 
   if (typeof spec === 'function') {
     guard = spec

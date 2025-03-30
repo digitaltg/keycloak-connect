@@ -112,7 +112,7 @@ Keycloak.prototype.middleware = function (options) {
     options = { logout: '', admin: '' }
   }
 
-  options.logout = options.logout || '/logout'
+  options.logout = options.logout ||  this.getConfig().app?.logout?.url  || '/logout'
   options.admin = options.admin || '/'
 
   const middlewares = []

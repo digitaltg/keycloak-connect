@@ -17,13 +17,87 @@ interface KeycloakConnectStatic {
 
 declare namespace KeycloakConnect {
 
+  interface KeycloakConfigApp {
+    auth: {
+      redirectUrl: string,
+    },
+    logout: {
+      url: string,
+      redirectUrl: string,
+    }
+  }
+
   interface KeycloakConfig {
     'confidential-port': string|number
-    'auth-server-url': string
-    'resource': string
+
+    /**
+   * Authentication server URL. Sepecifically the host, the base url
+   * @type {String}
+   */
+    'auth-server-url': string,
+    authServerUrl?: string
+
+    /**
+     * The ressource to be consumed by the application
+     * same thing as client-id
+     */
+    'resource'?: string
+    'client-id'?: string,
+
+    /**
+     * Internal or External. See keycloack configuration for that
+     */
     'ssl-required': string
-    'bearer-only'?: boolean
-    realm: string
+
+    /**
+   * If this is a Bearer Only application.
+   * @type {Boolean}
+   */
+    'bearer-only'?: boolean,
+    bearerOnly?: boolean,
+
+    /**
+     * States where the clien is public or not
+     */
+    'public-client'?: boolean,
+    public?: boolean,
+
+    realm: string,
+
+    /**
+     * The realm public key. Same as realPublicKey
+     */
+    'realm-public-key'?: string,
+    realmPublicKey?: string,
+    
+    /**
+     * Specify whether we need to verify the audience from the provided token.
+     * I true, you will need to add your resource or client id to the aud  attribute
+     * in the issued token configuration in keyclock.
+     * 
+     * Hint: Protocal Mapper create new audience and activate include in ttoken
+     */
+    'verify-token-audience': boolean,
+    verifyTokenAudience?: boolean,
+
+    'use-resource-role-mappings'?: boolean,
+    /**
+     * How many minutes before retrying getting the keys.
+     * @type {Integer}
+     */
+    'min-time-between-jwks-requests'?: number,
+    minTimeBetweenJwksRequests?: number,
+
+    /**
+     * Authentication. It is mandatory to provide the client secret
+     */
+    credentials: {
+      secret: string,
+    },
+    /**
+     * The application that is using keycloack configuration
+     */
+    app?: KeycloakConfigApp,
   }
 
   interface KeycloakOptions {

@@ -167,6 +167,12 @@ Config.prototype.configure = function configure (config) {
    * @type {Boolean}
    */
   this.verifyTokenAudience = resolveValue(config['verify-token-audience'] || config.verifyTokenAudience || false)
+
+  /**
+   * The application using the keycloack for authentication
+   * @type {auth: {redirectUrl: string},logout: {url: string, redirectUrl: string}}
+   */
+  this.app = config.app;
 }
 
 module.exports = Config
