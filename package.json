@@ -1,6 +1,6 @@
 {
   "name": "@digitaltg/keycloak-connect",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Keycloak Connect Middleware",
   "homepage": "http://keycloak.org",
   "main": "keycloak.js",
